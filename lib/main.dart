@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ringapp/features/blood_screen.dart';
-import 'package:ringapp/features/routert.dart';
-import 'package:ringapp/features/theme_data.dart';
+import 'package:ringapp/core/routing/routert.dart';
+import 'package:ringapp/core/themes/theme_data.dart';
+import 'package:ringapp/features/heart/presentation/screens/blood_history.dart';
+import 'package:ringapp/features/heart/presentation/screens/blood_screen.dart';
+import 'package:ringapp/features/heart/presentation/screens/heart_analysis_screen.dart';
+import 'package:ringapp/features/home/presentation/screens/home_page.dart';
+import 'package:ringapp/features/onboarding/presentation/screens/onboarding_1.dart';
+import 'package:ringapp/features/ring/presentation/screens/ring_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: CustomTheme.themeData,
       onGenerateRoute: AppRouter.onGenerateRoute,
-      home: const MainScreen(),
+      home: const OnBoarding1(),
     );
   }
 }
@@ -35,13 +40,15 @@ class _MainScreenState extends State<MainScreen> {
 
   // List of screens
   final List<Widget> _screens = [
+    const HomePage(),
+    const HeartScreen(),
     const BloodScreen(),
+    const RingScreen()
   ];
 
   // List of screens where BottomNavigationBar should not be shown
-  final List<int> _hideBottomNavBarOnScreens = [
-    2
-  ]; // Example: hide on BloodScreen (index 2)
+  final List<int> _hideBottomNavBarOnScreens =
+      []; // Example: hide on BloodScreen (index 2)
 
   @override
   Widget build(BuildContext context) {
@@ -56,43 +63,34 @@ class _MainScreenState extends State<MainScreen> {
               bottom:
                   20, // Adjust the bottom position to give a floating effect
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 45),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 45, vertical: 20),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 10.0, vertical: 20.0),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
                       colors: [
-                        const Color(0xffFFFFFF).withOpacity(0.3),
-                        const Color(0xffFFFFFF).withOpacity(0.6),
+                        Colors.white.withOpacity(0.03),
+                        Colors.white.withOpacity(0.10),
+                      ],
+                      stops: const [0, 100],
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: CustomPaint(
+                    painter: GradientPainter(padding: -20, widthPadding: -10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildNavItem(Icons.house_siding_outlined, 'Home', 0),
+                        _buildNavItem(Icons.favorite_border, 'Heart', 1),
+                        _buildNavItem(Icons.bloodtype_outlined, 'Blood', 2),
+                        _buildNavItem(Icons.circle_outlined, 'My ring', 3),
                       ],
                     ),
-                    color: Colors.white.withOpacity(0.15),
-                    borderRadius: BorderRadius.circular(30),
-                    border: const Border(
-                      left: BorderSide(color: Colors.white, width: 0.8),
-                      right: BorderSide(color: Colors.white, width: 0.8),
-                      top: BorderSide(color: Colors.white, width: 0.8),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 5,
-                        blurRadius: 10,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildNavItem(Icons.house_siding_outlined, 'Home', 0),
-                      _buildNavItem(Icons.favorite_border, 'Heart', 1),
-                      _buildNavItem(Icons.bloodtype_outlined, 'Blood', 2),
-                      _buildNavItem(Icons.circle_outlined, 'My ring', 3),
-                    ],
                   ),
                 ),
               ),

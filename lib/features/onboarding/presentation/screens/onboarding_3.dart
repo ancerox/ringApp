@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ringapp/features/custom_button.dart';
+import 'package:ringapp/core/widgets/custom_button.dart';
 
 class OnBoarding3 extends StatefulWidget {
   const OnBoarding3({super.key});
@@ -101,13 +101,15 @@ class _OnBoarding3State extends State<OnBoarding3>
                     // Botón "Connect" con fondo verde
                     CustomButton(
                       text: "Connect",
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/main');
+                      },
                     ),
                     const SizedBox(height: 20),
                     // Botón "This is not my device" con borde blanco
                     OutlinedButton(
                       onPressed: () {
-                        // Acción al presionar el botón
+                        Navigator.pushNamed(context, '/main');
                       },
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(color: Colors.white.withOpacity(0.8)),

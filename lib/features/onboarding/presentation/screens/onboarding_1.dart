@@ -1,7 +1,7 @@
 import 'dart:ui'; // Required for the blur effect
 
 import 'package:flutter/material.dart';
-import 'package:ringapp/features/theme_data.dart'; // Assuming this is your theme file
+import 'package:ringapp/core/themes/theme_data.dart'; // Assuming this is your theme file
 
 class OnBoarding1 extends StatelessWidget {
   const OnBoarding1({super.key});
@@ -48,7 +48,7 @@ class OnBoarding1 extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 60),
-                Text(
+                const Text(
                   "Let's begin by pairing\nyour Smart Ring",
                   textAlign: TextAlign.center,
                   style: CustomTheme.headingStyle,
@@ -68,12 +68,12 @@ class OnBoarding1 extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        // Handle button press
+                        Navigator.pushNamed(context, '/onboarding_2');
                       },
                       child: Container(
                         decoration: CustomTheme.buttonDecoration,
                         alignment: Alignment.center,
-                        child: Text(
+                        child: const Text(
                           'Begin',
                           style: CustomTheme.buttonTextStyle,
                         ),

@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ringapp/features/onboarding_2.dart';
-import 'package:ringapp/features/theme_data.dart';
+import 'package:ringapp/core/themes/theme_data.dart';
+import 'package:ringapp/features/onboarding/presentation/screens/onboarding_2.dart';
 
 class BloodScreen extends StatefulWidget {
   const BloodScreen({super.key});

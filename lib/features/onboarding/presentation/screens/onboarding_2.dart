@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:ui'; // Required for the blur effect
 
 import 'package:flutter/material.dart';
-import 'package:ringapp/features/theme_data.dart';
+import 'package:ringapp/core/themes/theme_data.dart';
 
 class RingWaveAnimation extends StatefulWidget {
   const RingWaveAnimation({super.key});
@@ -156,7 +156,7 @@ class SmartRingSearchPage extends StatelessWidget {
                       // Button to handle connection issues
                       OutlinedButton(
                         onPressed: () {
-                          // Handle button press
+                          Navigator.pushNamed(context, '/onboarding_3');
                         },
                         style: OutlinedButton.styleFrom(
                             side: CustomTheme.buttonBorderSide,

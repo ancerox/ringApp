@@ -1,17 +1,17 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ringapp/features/onboarding_2.dart';
-import 'package:ringapp/features/theme_data.dart';
+import 'package:ringapp/core/themes/theme_data.dart';
+import 'package:ringapp/features/onboarding/presentation/screens/onboarding_2.dart';
 
-class BloodHistoryScreen extends StatefulWidget {
-  const BloodHistoryScreen({super.key});
+class HeartHistoryScreen extends StatefulWidget {
+  const HeartHistoryScreen({super.key});
 
   @override
-  _BloodHistoryScreenState createState() => _BloodHistoryScreenState();
+  _HeartHistoryScreenState createState() => _HeartHistoryScreenState();
 }
 
-class _BloodHistoryScreenState extends State<BloodHistoryScreen> {
+class _HeartHistoryScreenState extends State<HeartHistoryScreen> {
   int selectedIndex = 0;
 
   @override
@@ -39,7 +39,7 @@ class _BloodHistoryScreenState extends State<BloodHistoryScreen> {
                       width: MediaQuery.of(context).size.width / 20,
                     ),
                     Text(
-                      "Blood History", // Your centered text
+                      "Heart History", // Your centered text
                       style: CustomTheme.headingStyle.copyWith(fontSize: 25),
                       textAlign: TextAlign.center,
                     ),
@@ -86,7 +86,7 @@ class _BloodHistoryScreenState extends State<BloodHistoryScreen> {
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     width: 400,
-                    height: 185,
+                    // height: 200,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.centerLeft,
@@ -104,9 +104,9 @@ class _BloodHistoryScreenState extends State<BloodHistoryScreen> {
                       child: Column(
                         children: [
                           SvgPicture.asset(
-                            'assets/svg/chart_heart.svg',
-                            // height: 75,
-                            width: 350,
+                            'assets/svg/large_beat.svg',
+                            height: 120,
+                            // width: 300,
                           ),
                           Row(
                             children: [
@@ -119,12 +119,12 @@ class _BloodHistoryScreenState extends State<BloodHistoryScreen> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: ' 129',
+                                      text: ' 100',
                                       style: CustomTheme.headingStyle
                                           .copyWith(fontSize: 25),
                                     ),
                                     TextSpan(
-                                      text: 'sys',
+                                      text: 'ms',
                                       style: CustomTheme.headingStyle.copyWith(
                                           fontSize: 14,
                                           color: Colors.white.withOpacity(0.8)),
@@ -141,12 +141,12 @@ class _BloodHistoryScreenState extends State<BloodHistoryScreen> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: ' 70',
+                                      text: ' 67',
                                       style: CustomTheme.headingStyle
                                           .copyWith(fontSize: 25),
                                     ),
                                     TextSpan(
-                                      text: 'dia',
+                                      text: 'min',
                                       style: CustomTheme.headingStyle.copyWith(
                                           fontSize: 14,
                                           color: Colors.white.withOpacity(0.8)),
@@ -163,12 +163,12 @@ class _BloodHistoryScreenState extends State<BloodHistoryScreen> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: ' 121',
+                                      text: ' 86',
                                       style: CustomTheme.headingStyle
                                           .copyWith(fontSize: 25),
                                     ),
                                     TextSpan(
-                                      text: 'spO2',
+                                      text: 'bpm',
                                       style: CustomTheme.headingStyle.copyWith(
                                           fontSize: 14,
                                           color: Colors.white.withOpacity(0.8)),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ringapp/features/theme_data.dart';
+import 'package:ringapp/core/themes/theme_data.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;

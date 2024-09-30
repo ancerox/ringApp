@@ -4,7 +4,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:ringapp/features/theme_data.dart';
+import 'package:ringapp/core/themes/theme_data.dart';
+import 'package:ringapp/features/heart/presentation/screens/blood_history.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -37,16 +38,7 @@ class HomePage extends StatelessWidget {
                         const SizedBox(height: 10),
                         Row(
                           children: [
-                            Transform.rotate(
-                              angle:
-                                  1.5708, // Rota el ícono 90 grados (en radianes).
-                              child: const Icon(
-                                Icons.battery_0_bar, // Ícono de batería vacía.
-                                color: Color(
-                                    0xff78F123), // Cambia el color si lo prefieres.
-                                size: 25.0, // Ajusta el tamaño del ícono.
-                              ),
-                            ),
+                            SvgPicture.asset('assets/svg/battery.svg'),
                             const SizedBox(width: 5),
                             Text(
                               '80%',
@@ -89,7 +81,7 @@ class HomePage extends StatelessWidget {
                     IconButton(
                       icon: SvgPicture.asset('assets/svg/notifications.svg'),
                       onPressed: () {
-                        // Acción para el botón de notificaciones
+                        Navigator.pushNamed(context, '/notifications');
                       },
                     ),
                   ],
@@ -299,58 +291,73 @@ class HomePage extends StatelessWidget {
           height: 200,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  const Color(0xffFFFFFF).withOpacity(0.3),
-                  const Color(0xffFFFFFF).withOpacity(0.6),
-                ]),
-            color: Colors.white.withOpacity(0.03), // Semi-transparent white
-            borderRadius: BorderRadius.circular(20),
-            border: const Border(
-              left: BorderSide(color: Colors.white, width: 0.8),
-              right: BorderSide(color: Colors.white, width: 0.8),
-              top: BorderSide(color: Colors.white, width: 0.8),
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Colors.white.withOpacity(0.03),
+                Colors.white.withOpacity(0.10),
+              ],
+              stops: const [0, 100],
             ),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x0fffffff),
-                blurRadius: 5, // Soften the shadow
-                spreadRadius: 5, // Extend the shadow
-                offset: Offset(2, 4),
-              ),
-            ],
+            borderRadius: BorderRadius.circular(20),
           ),
+          // decoration: BoxDecoration(
+          //   gradient: LinearGradient(
+          //       begin: Alignment.topLeft,
+          //       end: Alignment.bottomRight,
+          //       colors: [
+          //         const Color(0xffFFFFFF).withOpacity(0.3),
+          //         const Color(0xffFFFFFF).withOpacity(0.6),
+          //       ]),
+          //   color: Colors.white.withOpacity(0.03), // Semi-transparent white
+          //   borderRadius: BorderRadius.circular(20),
+          //   border: const Border(
+          //     left: BorderSide(color: Colors.white, width: 0.8),
+          //     right: BorderSide(color: Colors.white, width: 0.8),
+          //     top: BorderSide(color: Colors.white, width: 0.8),
+          //   ),
+          //   boxShadow: const [
+          //     BoxShadow(
+          //       color: Color(0x0fffffff),
+          //       blurRadius: 5, // Soften the shadow
+          //       spreadRadius: 5, // Extend the shadow
+          //       offset: Offset(2, 4),
+          //     ),
+          //   ],
+          // ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Spacer(),
-              widget,
-              const SizedBox(height: 10),
-              Text(title,
-                  style: CustomTheme.headingStyle.copyWith(fontSize: 14)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("$value ",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  Text(unit,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      )),
-                  const Spacer(),
-                  icon ?? Container()
-                ],
-              ),
-              const SizedBox(height: 10),
-            ],
+          child: CustomPaint(
+            painter: GradientPainter(padding: -10, widthPadding: -16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Spacer(),
+                widget,
+                const SizedBox(height: 10),
+                Text(title,
+                    style: CustomTheme.headingStyle.copyWith(fontSize: 14)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("$value ",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    Text(unit,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        )),
+                    const Spacer(),
+                    icon ?? Container()
+                  ],
+                ),
+                const SizedBox(height: 10),
+              ],
+            ),
           ),
         ),
       ),
@@ -504,131 +511,148 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //       begin: Alignment.topLeft,
+      //       end: Alignment.bottomRight,
+      //       colors: [
+      //         const Color(0xffFFFFFF).withOpacity(0.1),
+      //         const Color(0xffFFFFFF).withOpacity(0.7),
+      //       ]),
+      //   color: Colors.white.withOpacity(0.15), // Semi-transparent white
+      //   borderRadius: BorderRadius.circular(20),
+      //   border: const Border(
+      //     left: BorderSide(color: Colors.white, width: 0.8),
+      //     right: BorderSide(color: Colors.white, width: 0.8),
+      //     top: BorderSide(color: Colors.white, width: 0.8),
+      //   ),
+      // ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              const Color(0xffFFFFFF).withOpacity(0.1),
-              const Color(0xffFFFFFF).withOpacity(0.7),
-            ]),
-        color: Colors.white.withOpacity(0.15), // Semi-transparent white
-        borderRadius: BorderRadius.circular(20),
-        border: const Border(
-          left: BorderSide(color: Colors.white, width: 0.8),
-          right: BorderSide(color: Colors.white, width: 0.8),
-          top: BorderSide(color: Colors.white, width: 0.8),
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Colors.white.withOpacity(0.03),
+            Colors.white.withOpacity(0.10),
+          ],
+          stops: const [0, 100],
         ),
+        borderRadius: BorderRadius.circular(20),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 7,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
+      child: CustomPaint(
+        painter: GradientPainter(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 7,
             ),
-            child: Row(
-              children: [
-                Text(
-                  'Jun',
-                  style:
-                      CustomTheme.buttonTextStyle.copyWith(color: Colors.white),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Transform.rotate(
-                  angle:
-                      -1.5708, // This is approximately π/2 radians (90 degrees)
-                  child: const Icon(
-                    Icons.arrow_back_ios,
-                    color: Color(0xff7A949D),
-                    size: 15,
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    'Jun',
+                    style: CustomTheme.buttonTextStyle
+                        .copyWith(color: Colors.white),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Transform.rotate(
+                    angle:
+                        -1.5708, // This is approximately π/2 radians (90 degrees)
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Color(0xff7A949D),
+                      size: 15,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: List.generate(7, (index) {
-              DateTime day = now.add(Duration(days: index));
-              bool isSelected = index == _selectedIndex;
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedIndex = index; // Update the selected index
-                  });
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (isSelected)
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(7, (index) {
+                DateTime day = now.add(Duration(days: index));
+                bool isSelected = index == _selectedIndex;
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedIndex = index; // Update the selected index
+                    });
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (isSelected)
+                        Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color:
+                                    Color(0xff78F123), // Glow color and opacity
+                                blurRadius: 8.0, // Intensity of the glow
+                                spreadRadius: 1.0, // Spread of the glow
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.circle,
+                            color: Color(0xff78F123), // Original icon color
+                            size: 7, // Icon size
+                          ),
+                        ),
+                      const SizedBox(
+                        height: 5,
+                      ),
                       Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color:
-                                  Color(0xff78F123), // Glow color and opacity
-                              blurRadius: 8.0, // Intensity of the glow
-                              spreadRadius: 1.0, // Spread of the glow
+                        width: 35,
+                        height: 60,
+                        // padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                        decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color(0xff556972),
+                                  Color(0xffACC5CF),
+                                ]),
+                            color:
+                                isSelected ? Colors.blue : Colors.transparent,
+                            borderRadius: BorderRadius.circular(11)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(formatter.format(day)[0],
+                                style: TextStyle(
+                                    color: isSelected
+                                        ? Colors.black
+                                        : const Color(0xff7A949D),
+                                    fontSize: 14)), // First letter of the day
+                            const SizedBox(
+                              height: 13,
                             ),
+                            Text(day.day.toString(),
+                                style: TextStyle(
+                                    color: isSelected
+                                        ? Colors.black
+                                        : Colors.white,
+                                    fontSize: 13)),
                           ],
                         ),
-                        child: const Icon(
-                          Icons.circle,
-                          color: Color(0xff78F123), // Original icon color
-                          size: 7, // Icon size
-                        ),
                       ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      width: 35,
-                      height: 60,
-                      // padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                      decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color(0xff556972),
-                                Color(0xffACC5CF),
-                              ]),
-                          color: isSelected ? Colors.blue : Colors.transparent,
-                          borderRadius: BorderRadius.circular(11)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(formatter.format(day)[0],
-                              style: TextStyle(
-                                  color: isSelected
-                                      ? Colors.black
-                                      : const Color(0xff7A949D),
-                                  fontSize: 15)), // First letter of the day
-                          const SizedBox(
-                            height: 13,
-                          ),
-                          Text(day.day.toString(),
-                              style: TextStyle(
-                                  color:
-                                      isSelected ? Colors.black : Colors.white,
-                                  fontSize: 15)),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }),
-          ),
-        ],
+                    ],
+                  ),
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }
