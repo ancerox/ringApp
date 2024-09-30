@@ -75,7 +75,9 @@ class _BloodScreenState extends State<BloodScreen>
                     Padding(
                       padding: const EdgeInsets.only(top: 12),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/blood_history');
+                        },
                         icon: SvgPicture.asset('assets/svg/chart.svg'),
                       ),
                     ),
@@ -299,11 +301,12 @@ class _DragButtonScreenState extends State<DragButtonScreen>
               ),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.center,
             child: isDragged
                 ? const Text(
                     "Do not move or talk",
                     style: TextStyle(
+                      fontFamily: 'Inter',
                       color: Colors.black,
                       fontSize: 16,
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ringapp/features/blood_screen.dart';
+import 'package:ringapp/features/routert.dart';
 import 'package:ringapp/features/theme_data.dart';
 
 void main() {
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: CustomTheme.themeData,
+      onGenerateRoute: AppRouter.onGenerateRoute,
       home: const MainScreen(),
     );
   }
